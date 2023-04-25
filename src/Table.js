@@ -4,11 +4,33 @@ import './table.css';
 
 function Table() {
      const [data, setData] = useState([])
+     const [date, setDate] = useState('')
+     const [description, setDescription] = useState('')
+     const [category, setCategory] = useState('')
+     const [amount, setAmount] = useState('')
+
      useEffect(()=> {
            axios.get('http://localhost:3000/transactions')
           .then(res => setData(res.data))
           .catch(er => console.log(er))
      },[])
+
+const handleSubmit = (event) => {
+     event.preventDefault();
+     axios.post('http://localhost:3000/transactions' , {date: date, description: description, category: category, amount: amount})
+     .then(res => {
+          Location.reload()
+     })
+     .catch(er => console.log(er))
+}
+
+const handleDelete = (id) => {
+     axios.delete('http://localhost:3000/transactions' + id)
+     .then(res => {
+          Location.reload()
+     })
+}
+
   return (
     <div>
           <table>
@@ -22,11 +44,12 @@ function Table() {
                     </tr>
                     </div>
                     <div>
-          <form action=''>
-               <input type='date' placeholder='Enter date'></input>
-               <input type='text' placeholder='Enter description'></input>
-               <input type='text' placeholder='Enter category'></input>
-               <input type='number' placeholder='Enter amount'></input>
+          <form onSubmit={handleSubmit}>
+               <input type='date' placeholder='Enter date' onChange={e => setDate(e.target.value)}></input>
+               <input type='text' placeholder='Enter description' onChange={e => setDescription(e.target.value)}></input>
+               <input type='text' placeholder='Enter category' onChange={e => setCategory(e.target.value)}></input>
+               <input type='number' placeholder='Enter amount' onChange={e => setAmount(e.target.value)}></input>
+               <button>Add</button>
           </form>
      </div>
                </thead>
@@ -41,7 +64,7 @@ function Table() {
                                              <td>{transactions.amount}</td>
                                   </ol>
                                         <td>
-                                             <button>Delete</button>
+                                             <button onClick={() => handleDelete(transactions.id)}>Delete</button>
                                         </td>
                               </tr>
                          ))
