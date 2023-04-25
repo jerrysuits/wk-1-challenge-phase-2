@@ -1,0 +1,32 @@
+body{
+     background-color: white;
+     color: black;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+     font-family: arial, sans serif;
+     border-collapse: inherit;
+     width: 100%;
+   justify-content: space-evenly;
+}
+
+.nav{
+     margin-left: 70px;
+   
+}
+
+td, th {
+     border: 1px solid #dddddd;
+     text-align: center;
+     padding: 8px;
+     background-color: rgb(223, 223, 223);
+     border-radius: 8px;
+     justify-content: space-evenly;
+    
+   }
+   
+.date{
+     margin-right: 40px;
+}
+ 
+
